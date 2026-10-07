@@ -1,0 +1,31 @@
+{
+  "name": "github-buddy-root",
+  "version": "1.0.0",
+  "description": "GitHub Buddy - Understand any GitHub repository visually",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "start": "npm --prefix server start",
+    "build": "npm --prefix client run build",
+    "test": "npm --prefix server test",
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.2",
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "github",
+    "repository-analyzer",
+    "react-flow",
+    "visualizer",
+    "developer-tools"
+  ],
+  "author": "GitHub Buddy Team",
+  "license": "MIT",
+  "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/core": "^8.5.2"
+  }
+}

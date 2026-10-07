@@ -1,0 +1,5 @@
+{
+  "appId": "com.gitbuddy",
+  "appName": "Git Buddy",
+  "webDir": "client/dist"
+}
