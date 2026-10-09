@@ -12,6 +12,8 @@ import InsightsPage from './pages/InsightsPage.jsx';
 import AskBuddyPage from './pages/AskBuddyPage.jsx';
 import GitReferencePage from './pages/GitReferencePage.jsx';
 import GitErrorHelperPage from './pages/GitErrorHelperPage.jsx';
+import GitDoctorPage from './pages/GitDoctorPage.jsx';
+import AuthPage from './pages/AuthPage.jsx';
 
 export function App() {
   return (
@@ -22,6 +24,8 @@ export function App() {
         <Route path="/analyze" element={<AnalyzePage />} />
         <Route path="/git" element={<GitReferencePage />} />
         <Route path="/git/errors" element={<GitErrorHelperPage />} />
+        <Route path="/login" element={<AuthPage mode="login" />} />
+        <Route path="/register" element={<AuthPage mode="register" />} />
 
         {/* Repository Analysis Context & Sub-navigation */}
         <Route path="/repository/:owner/:repo" element={<RepoLayout />}>
@@ -29,6 +33,7 @@ export function App() {
           <Route path="files" element={<FilesPage />} />
           <Route path="architecture" element={<ArchitecturePage />} />
           <Route path="insights" element={<InsightsPage />} />
+          <Route path="doctor" element={<GitDoctorPage />} />
           <Route path="ask" element={<AskBuddyPage />} />
         </Route>
 

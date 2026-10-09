@@ -33,6 +33,7 @@ export function RepoLayout() {
     { name: 'Files', path: `${baseUrl}/files`, icon: FolderTree },
     { name: 'Architecture', path: `${baseUrl}/architecture`, icon: Network },
     { name: 'Insights', path: `${baseUrl}/insights`, icon: BarChart3 },
+    { name: 'Git Doctor', path: `${baseUrl}/doctor`, icon: Shield },
     { name: 'Ask Buddy', path: `${baseUrl}/ask`, icon: BotMessageSquare, badge: 'AI' },
   ];
 
