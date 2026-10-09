@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext.jsx';
 import {
   Compass,
   GitBranch,
@@ -9,11 +10,22 @@ import {
   X,
   Sparkles,
   Github,
+  LogIn,
+  LogOut,
+  UserPlus,
 } from 'lucide-react';
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
+  const initials = (user?.name || user?.email || '?').split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
+  const handleLogout = () => {
+    logout();
+    setMobileMenuOpen(false);
+    navigate('/login');
+  };
 
   const navLinks = [
     { name: 'Analyze', path: '/analyze', icon: Compass },
@@ -74,6 +86,28 @@ export function Navbar() {
 
           {/* Desktop Right Actions */}
           <div className="hidden md:flex items-center gap-3">
+            {isAuthenticated ? (
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full bg-dark-900 border border-dark-800" title={user.email}>
+                  <span className="w-7 h-7 rounded-full bg-brand-500/20 text-brand-300 text-[11px] font-bold flex items-center justify-center">{initials}</span>
+                  <span className="text-xs text-slate-200 font-medium max-w-[110px] truncate">{user.name}</span>
+                </div>
+                <button onClick={handleLogout} title="Log out" aria-label="Log out" className="p-2 text-slate-400 hover:text-rose-300 rounded-lg hover:bg-dark-800 transition-colors">
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5">
+                <Link to="/login" className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-slate-100 hover:bg-dark-800 transition-colors">
+                  <LogIn className="w-4 h-4" />
+                  Log in
+                </Link>
+                <Link to="/register" className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-brand-400 border border-brand-500/30 hover:bg-brand-500/10 transition-colors">
+                  <UserPlus className="w-4 h-4" />
+                  Sign up
+                </Link>
+              </div>
+            )}
             <Link
               to="/analyze"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-400 text-dark-950 font-semibold text-sm transition-all shadow-lg shadow-brand-500/20 hover:scale-[1.02] active:scale-[0.98]"
@@ -127,6 +161,32 @@ export function Navbar() {
               </Link>
             );
           })}
+
+          <div className="pt-2 border-t border-dark-800 mt-2">
+            {isAuthenticated ? (
+              <div className="flex items-center justify-between px-4 py-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <span className="w-9 h-9 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold flex items-center justify-center shrink-0">{initials}</span>
+                  <div className="min-w-0">
+                    <p className="text-sm text-slate-100 font-medium truncate">{user.name}</p>
+                    <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                  </div>
+                </div>
+                <button onClick={handleLogout} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-rose-300 hover:bg-dark-900">
+                  <LogOut className="w-4 h-4" /> Log out
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-2">
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center gap-2 py-3 rounded-xl text-slate-200 bg-dark-900 border border-dark-800 text-base font-medium">
+                  <LogIn className="w-5 h-5" /> Log in
+                </Link>
+                <Link to="/register" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center gap-2 py-3 rounded-xl text-brand-400 border border-brand-500/30 text-base font-medium">
+                  <UserPlus className="w-5 h-5" /> Sign up
+                </Link>
+              </div>
+            )}
+          </div>
 
           <div className="pt-2">
             <Link

@@ -8,6 +8,7 @@ import healthRoutes from './routes/healthRoutes.js';
 import repositoryRoutes from './routes/repositoryRoutes.js';
 import aiRoutes from './routes/aiRoutes.js';
 import gitRoutes from './routes/gitRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -53,6 +54,7 @@ app.use('/api', healthRoutes);
 app.use('/api/repository', repositoryRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/git', gitRoutes);
+app.use('/api/auth', authRoutes);
 
 // Serve production static assets if client/dist exists
 if (fs.existsSync(clientDistPath)) {
